@@ -1,5 +1,6 @@
 from django.contrib import admin
 
-from CourseApp.models import CustomUser, PhoneVerification, PasswordResetCode
+from CourseApp.models import *
 
-admin.site.register([CustomUser, PhoneVerification, PasswordResetCode])
+admin.site.register([CustomUser, PhoneVerification, PasswordResetCode, EducationCentres, Branches, Courses, Category,
+                     Skills])

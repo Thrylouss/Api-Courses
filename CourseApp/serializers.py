@@ -4,7 +4,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 
-from CourseApp.models import CustomUser, PhoneVerification, PasswordResetCode
+from CourseApp.models import CustomUser, PhoneVerification, PasswordResetCode, Category, Skills, EducationCentres, \
+    Branches, Courses
 
 User = get_user_model()
 
@@ -110,6 +111,12 @@ class RequestPasswordResetSerializer(serializers.Serializer):
         return value
 
 
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(write_only=True)
+    new_password = serializers.CharField(write_only=True)
+    confirm_password = serializers.CharField(write_only=True)
+
+
 # 8) Проверяем код для сброса пароля
 class VerifyResetCodeSerializer(serializers.Serializer):
     phone_number = serializers.CharField()
@@ -165,3 +172,37 @@ class ResetPasswordSerializer(serializers.Serializer):
         )
         reset_code.is_used = True
         reset_code.save()
+
+
+class LogoutSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skills
+        fields = '__all__'
+
+
+class EducationCentresSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EducationCentres
+        fields = '__all__'
+
+
+class BranchesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Branches
+        fields = '__all__'
+
+
+class CoursesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Courses
+        fields = '__all__'
